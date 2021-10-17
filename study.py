@@ -2,7 +2,7 @@ from helper import *
 from sql import *
 import json
 
-def update_Problems_dict(text, tags):
+def update_Problems_dict(text: str, tags: list):
     # Удаление знаков припенания
     clear_Problem_Text = sanitizer(text)
     Splited_Problem_Text = clear_Problem_Text.split()
@@ -34,10 +34,7 @@ def update_Problems_dict(text, tags):
 
     for i in range(len(tags)):
         dict_value = Problems_dict.get(tags[i])
-        if dict_value != []:
-            words_list = json.dumps(words_list_gen(cutted_words_list, dict_value))
-        else:
-            words_list = json.dumps(cutted_words_list)
+        words_list = json.dumps(words_list_gen(cutted_words_list, dict_value) if dict_value != [] else cutted_words_list)
         sql_select_tags(tags[i], words_list)
 
     sql_close()
