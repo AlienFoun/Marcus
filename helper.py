@@ -1,6 +1,6 @@
 import string
-from sql import sql_fetch
-
+from sql import *
+import json
 
 def cutter(text: str):
     total = []  # Создание списка для вывода
@@ -22,9 +22,8 @@ def appends(cur, tag_name: str):
     tag_list_name = []
     rows = sql_fetch(cur, tag_name)
     for row in rows:
-        words = row[1].split(' | ')
-        for i in range(len(words)):
-            tag_list_name.append(words[i])
+        words = json.loads(row[1])
+        tag_list_name+=words
     return tag_list_name
 
 

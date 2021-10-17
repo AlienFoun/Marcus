@@ -13,7 +13,7 @@ def sql_fetch(cur, tag_name):
 
 
 def sql_select_tags(tag, list_of_words):
-    if list_of_words != '':
+    if list_of_words != '[]':
         sql_insert(cur, tag, list_of_words)
         print('Данные успешно добавлены в базу данных')
     else:
