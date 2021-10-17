@@ -2,7 +2,7 @@ from sql import *
 from helper import *
 
 Mock_Problem_Text = 'Я совершил ошибку и всегда буду их совершать!!!!!!!'.lower()
-Mock_Problem_Tags = 'due, mind_reading'.split(', ')
+Mock_Problem_Tags = ['due', 'mind_reading']
 
 # Удаление знаков припенания
 clear_Problem_Text = sanitizer(Mock_Problem_Text)
