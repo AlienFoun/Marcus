@@ -4,7 +4,7 @@ from helper import cutter
 
 class TestCutter(unittest.TestCase):
     # начинается с test_
-    def test_cut(self):
+    def test_cut(self) -> None:
         self.assertEqual(cutter(['я', 'тебя', 'люблю']),
                          ['я', 'тебя', 'люблю', 'я тебя', 'тебя люблю', 'я тебя люблю'])
         self.assertEqual(cutter(['I', 'love', 'you']),

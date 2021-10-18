@@ -1,18 +1,19 @@
 import sqlite3 as sql
+from typing import List, Tuple
 
 
-def sql_insert(cur, tag_name: str, words_list: str) -> None:
+def sql_insert(cur: sql.Cursor, tag_name: str, words_list: str) -> None:
     cur.execute(f"INSERT INTO `Tags` VALUES ('{tag_name}', '{words_list}')")
     con.commit()
 
 
-def sql_fetch(cur, tag_name: str) -> list:
+def sql_fetch(cur: sql.Cursor, tag_name: str) -> List[Tuple[str]]:
     cur.execute(f"select * from Tags where Tag='{tag_name}'")
     rows = cursor.fetchall()
     return rows
 
 
-def sql_select_tags(tag, list_of_words: str) -> None:
+def sql_select_tags(tag: str, list_of_words: str) -> None:
     if list_of_words != '[]':
         sql_insert(cursor, tag, list_of_words)
         print('Данные успешно добавлены в базу данных')

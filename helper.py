@@ -1,9 +1,10 @@
 import string
 import json
 from sql import sql_fetch
+from typing import List
 
 
-def cutter(text: list) -> list:
+def cutter(text: List[str]) -> list:
     if text != [] and isinstance(text, list):
         total = []  # Создание списка для вывода
         simbol = 0  # Счетчик количества символов
@@ -24,7 +25,7 @@ def cutter(text: list) -> list:
         return []
 
 
-def appends(cursor, tag_name: str) -> list:
+def appends(cursor, tag_name: str) -> List[str]:
     tag_list_name = []
     rows = sql_fetch(cursor, tag_name)
     for row in rows:
@@ -33,7 +34,7 @@ def appends(cursor, tag_name: str) -> list:
     return tag_list_name
 
 
-def words_list_gen(lists: list, tag_list_name: list) -> list:
+def words_list_gen(lists: list, tag_list_name: list) -> List[str]:
     not_join_words_list = []
     for element in lists:
         if element not in tag_list_name:
