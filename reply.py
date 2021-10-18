@@ -34,7 +34,7 @@ def reply_output(text: str, data: List) -> List[str]:
 
     ans = []
     for i in range(output_size):
-        if reply_list[i][0] != 0:
+        if reply_list[i][1] != 0:
             ans.append(reply_list[i][0])
     return ans
 

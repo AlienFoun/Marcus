@@ -40,7 +40,7 @@ def update_problems_dict(text: str, tags: List[str]) -> None:
 
     for tag in tags:
         dict_value = problems_dict.get(tag)
-        words_list = json.dumps(cutted_words_list if dict_value == []
+        words_list = json.dumps(cutted_words_list if dict_value == ['']
                                 else words_list_gen(cutted_words_list, dict_value))
         sql_select_tags(tag, words_list)
 

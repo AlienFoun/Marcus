@@ -34,11 +34,10 @@ def appends(cursor, tag_name: str) -> List[str]:
 
 
 def words_list_gen(lists: List, tag_list_name: List) -> List[str]:
-    not_join_words_list = []
     for element in lists:
         if element not in tag_list_name:
-            not_join_words_list.append(element)
-    return not_join_words_list
+            tag_list_name.append(element)
+    return tag_list_name
 
 
 def sanitizer(clear_text: str) -> str:
