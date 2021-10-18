@@ -12,24 +12,6 @@ def update_problems_dict(text: str, tags: List[str]) -> None:
     for tag in tags:
         dict_gen: Dict[str, list] = {tag: []}
         problems_dict.update(dict_gen)
-    '''    
-    Problems_dict = {
-        'wrong_future': [],
-        'due': [],
-        'mind_reading': [],
-        'black_and_white_thinking': [],
-        'catastrophization': [],
-        'generalization': [],
-        'filtering': [],
-        'disqualification_positive': [],
-        'jumping_conclusions': [],
-        'exaggeration_understatement': [],
-        'emotions_conclusions': [],
-        'possible': [],
-        'labels': [],
-        'responsibility': []
-    }
-    '''
 
     for tag in tags:
         new_value: List[str] = appends(cursor, tag)
