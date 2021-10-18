@@ -27,7 +27,7 @@ def update_problems_dict(text: str, tags: List[str]) -> None:
         'emotions_conclusions': [],
         'possible': [],
         'labels': [],
-        'responsibility': [],
+        'responsibility': []
     }
     '''
 

@@ -1,7 +1,7 @@
 import string
 import json
 from sql import sql_fetch
-from typing import List
+from typing import List, Tuple
 
 
 def cutter(text: List[str]) -> list:
@@ -21,8 +21,7 @@ def cutter(text: List[str]) -> list:
                 i += 1
             simbol += 1
         return total  # Возвращаем список вывода
-    else:
-        return []
+    return []
 
 
 def appends(cursor, tag_name: str) -> List[str]:
@@ -47,3 +46,30 @@ def sanitizer(clear_text: str) -> str:
     for element in punc:
         clear_text = clear_text.replace(element, '')
     return clear_text
+
+
+def dict_creater(data_tuple: Tuple[str, List[str]]) -> dict:
+    new_dict = {}
+    for element in data_tuple:
+        dict_updater = {element[0]: tuple(element[1])}
+        new_dict.update(dict_updater)
+    return new_dict
+
+
+def found_duplication(data_dict: dict, weight_list: list, words_list: list) -> list:
+    for element in weight_list:
+        otput_data = data_dict.get(element[0])
+        if otput_data is not None:
+            for key in words_list:
+                if key in otput_data:
+                    element[1] += 1
+    return weight_list
+
+
+def database_loads(cur) -> List[List[str]]:
+    execution = cur.execute('select * from Tags')
+    data = execution.fetchall()
+    for i in range(len(data)):
+        data[i] = list(data[i])
+        data[i][1] = json.loads(data[i][1])
+    return data

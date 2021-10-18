@@ -13,9 +13,9 @@ def sql_fetch(cur: sql.Cursor, tag_name: str) -> List[Tuple[str]]:
     return rows
 
 
-def sql_select_tags(tag: str, list_of_words: str) -> None:
-    if list_of_words != '[]':
-        sql_insert(cursor, tag, list_of_words)
+def sql_select_tags(tag: str, string_of_words: str) -> None:
+    if string_of_words != '[]':
+        sql_insert(cursor, tag, string_of_words)
         print('Данные успешно добавлены в базу данных')
     else:
         print('Данные не были добавлены в базу данных')
