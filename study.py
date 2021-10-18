@@ -1,16 +1,16 @@
-from helper import *
-from sql import *
 import json
+from helper import appends, words_list_gen, sanitizer, cutter
+from sql import cursor, sql_select_tags, sql_close
 
-def update_Problems_dict(text: str, tags: list):
-    # Удаление знаков припенания
-    clear_Problem_Text = sanitizer(text)
-    Splited_Problem_Text = clear_Problem_Text.split()
 
-    Problems_dict = {}
-    for el in tags:
-        dict_gen = {el:[]}
-        Problems_dict.update(dict_gen)
+def update_problems_dict(text: str, tags: list) -> None:
+    clear_problem_text: str = sanitizer(text)  # Удаление знаков припенания
+    splited_problem_text: list = clear_problem_text.split()
+
+    problems_dict: dict = {}
+    for tag in tags:
+        dict_gen: dict = {tag: []}
+        problems_dict.update(dict_gen)
     '''    
     Problems_dict = {
         'wrong_future': [],
@@ -30,22 +30,23 @@ def update_Problems_dict(text: str, tags: list):
     }
     '''
 
-    for i in range(len(tags)):
-        dict_problem_tag = tags[i]
-        new_value = appends(cur, tags[i])
-        dict_updater = {dict_problem_tag: new_value}
-        Problems_dict.update(dict_updater)
+    for tag in tags:
+        new_value: list = appends(cursor, tag)
+        dict_updater: dict = {tag: new_value}
+        problems_dict.update(dict_updater)
 
-    cutted_words_list = cutter(Splited_Problem_Text)
+    cutted_words_list: list = cutter(splited_problem_text)
 
-    for i in range(len(tags)):
-        dict_value = Problems_dict.get(tags[i])
-        words_list = json.dumps(words_list_gen(cutted_words_list, dict_value) if dict_value != [] else cutted_words_list)
-        sql_select_tags(tags[i], words_list)
+    for tag in tags:
+        dict_value: list = problems_dict.get(tag)
+        words_list: str = json.dumps(cutted_words_list if dict_value == []
+                                     else words_list_gen(cutted_words_list, dict_value))
+        sql_select_tags(tag, words_list)
 
     sql_close()
 
-Mock_Problem_Text = 'Я совершил ошибку и всегда буду их совершать!!!!!!!'.lower()
-Mock_Problem_Tags = ['due']
 
-update_Problems_dict(Mock_Problem_Text, Mock_Problem_Tags)
+MOCK_PROBLEM_TEXT: str = 'Я совершил ошибку и всегда буду их совершать!!!!!!!'.lower()
+MOCK_PROBLEM_TAGS: list = ['due']
+
+update_problems_dict(MOCK_PROBLEM_TEXT, MOCK_PROBLEM_TAGS)
