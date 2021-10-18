@@ -1,10 +1,10 @@
 import string
 import json
 from sql import sql_fetch
-from typing import List, Tuple
+from typing import List
 
 
-def cutter(text: List[str]) -> list:
+def cutter(text: List[str]) -> List:
     if text != [] and isinstance(text, list):
         total = []  # Создание списка для вывода
         simbol = 0  # Счетчик количества символов
@@ -33,7 +33,7 @@ def appends(cursor, tag_name: str) -> List[str]:
     return tag_list_name
 
 
-def words_list_gen(lists: list, tag_list_name: list) -> List[str]:
+def words_list_gen(lists: List, tag_list_name: List) -> List[str]:
     not_join_words_list = []
     for element in lists:
         if element not in tag_list_name:
@@ -48,7 +48,7 @@ def sanitizer(clear_text: str) -> str:
     return clear_text
 
 
-def dict_creater(data_tuple: Tuple[str, List[str]]) -> dict:
+def dict_creater(data_tuple: List) -> dict:
     new_dict = {}
     for element in data_tuple:
         dict_updater = {element[0]: tuple(element[1])}
