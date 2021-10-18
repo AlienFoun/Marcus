@@ -7,6 +7,11 @@ def update_Problems_dict(text: str, tags: list):
     clear_Problem_Text = sanitizer(text)
     Splited_Problem_Text = clear_Problem_Text.split()
 
+    Problems_dict = {}
+    for el in tags:
+        dict_gen = {el:[]}
+        Problems_dict.update(dict_gen)
+    '''    
     Problems_dict = {
         'wrong_future': [],
         'due': [],
@@ -23,6 +28,7 @@ def update_Problems_dict(text: str, tags: list):
         'labels': [],
         'responsibility': [],
     }
+    '''
 
     for i in range(len(tags)):
         dict_problem_tag = tags[i]

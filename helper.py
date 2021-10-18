@@ -3,7 +3,7 @@ from sql import *
 import json
 
 def cutter(text: list):
-    if type(text) == list:
+    if type(text) == list and text != []:
         total = []  # Создание списка для вывода
         n = 0  # Счетчик количества символов
         while ' '.join(text) not in total:  # Проверка, находится ли входной текст в списке вывода
