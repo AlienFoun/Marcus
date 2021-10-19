@@ -1,5 +1,5 @@
 import unittest
-from helper import cutter
+from helper import cutter, found_duplication
 from reply import reply_output
 
 
@@ -26,6 +26,27 @@ class TestReply(unittest.TestCase):
         self.assertEqual(reply_output('', [['due', '']]), [])
         self.assertEqual(reply_output('', [['due', ['я', 'тебя', 'люблю', 'я тебя', 'тебя люблю',
                                                     'я тебя люблю']]]), [])
+        self.assertEqual(reply_output('ывппвыыва ываывавыоадл', [['due', ['я', 'тебя', 'люблю', 'я тебя', 'тебя люблю',
+                                                                          'я тебя люблю']]]), [])
+        self.assertEqual(reply_output('2342324 234234 333', [['due', ['я', 'тебя', 'люблю', 'я тебя', 'тебя люблю',
+                                                                      'я тебя люблю']]]), [])
+
+    def test_find(self) -> None:
+        self.assertEqual(found_duplication({'due': ('я', 'тебя', 'люблю', 'я тебя', 'тебя люблю', 'я тебя люблю')},
+                                           [['due', 0]],
+                                           ['я', 'тебя', 'люблю', 'я тебя', 'тебя люблю', 'я тебя люблю']), [['due', 6]])
+
+        self.assertEqual(found_duplication({'due': ('я', 'тебя', 'люблю', 'я тебя', 'тебя люблю', 'я тебя люблю')},
+                                           [['due', 0]],
+                                           ['я', 'не', 'люблю', 'я не', 'не люблю', 'я не люблю']), [['due', 2]])
+
+        self.assertEqual(found_duplication({'due': ('я', 'тебя', 'люблю', 'я тебя', 'тебя люблю', 'я тебя люблю')},
+                                           [['due', 0]],
+                                           ['2342324', '234234', '333', '2342324 234234', '234234 333', '2342324 234234 333']), [['due', 0]])
+
+        self.assertEqual(found_duplication({'due': ('я', 'тебя', 'люблю', 'я тебя', 'тебя люблю', 'я тебя люблю')},
+                                           [['due', 0]],
+                                           ['']), [['due', 0]])
 
 
 if __name__ == '__main__':

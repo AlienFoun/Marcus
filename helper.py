@@ -26,11 +26,15 @@ def cutter(text: List[str]) -> List:
 
 def appends(cursor, tag_name: str) -> List[str]:
     tag_list_name = []
+    new_tags = []
     rows = sql_fetch(cursor, tag_name)
     for row in rows:
         words = json.loads(row[1])
         tag_list_name += words
-    return tag_list_name
+
+    if rows == []:
+        new_tags.append(tag_name)
+    return tag_list_name, new_tags
 
 
 def words_list_gen(lists: List, tag_list_name: List) -> List[str]:
@@ -57,18 +61,8 @@ def dict_creater(data_list: List) -> dict:
 
 def found_duplication(data_dict: dict, weight_list: list, words_list: list) -> list:
     for element in weight_list:
-        otput_data = data_dict.get(element[0])
-        if otput_data is not None:
-            for key in words_list:
-                if key in otput_data:
-                    element[1] += 1
+        tag_words = data_dict.get(element[0]) # Получаем слова для определенного тэга из базы
+        for word in words_list:  # Цикл для проверки наличия входных данных в значениях из базы
+            if word in tag_words:  # Проверяем наличие
+                element[1] += 1  # Прибавляем 1 к счетчику, который в списке тэгов
     return weight_list
-
-
-def database_loads(cur) -> List[List[str]]:
-    execution = cur.execute('select * from Tags')
-    data = execution.fetchall()
-    for i in range(len(data)):
-        data[i] = list(data[i])
-        data[i][1] = json.loads(data[i][1])
-    return data
