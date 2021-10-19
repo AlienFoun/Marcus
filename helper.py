@@ -47,9 +47,9 @@ def sanitizer(clear_text: str) -> str:
     return clear_text
 
 
-def dict_creater(data_tuple: List) -> dict:
+def dict_creater(data_list: List) -> dict:
     new_dict = {}
-    for element in data_tuple:
+    for element in data_list:
         dict_updater = {element[0]: tuple(element[1])}
         new_dict.update(dict_updater)
     return new_dict
