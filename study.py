@@ -8,35 +8,35 @@ def update_problems_dict(text: str, tags: List[str]) -> None:
     clear_problem_text: str = sanitizer(text)  # Удаление знаков припенания
     splited_problem_text: list = clear_problem_text.split()
 
-    problems_dict: dict = {}
+    problems_dict = {}
     new_tags = []
 
     for tag in tags:
-        dict_gen: Dict[str, list] = {tag: []}
-        problems_dict.update(dict_gen)
-
-    for tag in tags:
-        new_value: List[str] = appends(cursor, tag)
-        dict_updater: Dict[str, List[str]] = {tag: new_value[0]}
+        new_value: List[str] = appends(cursor, tag)  # Получаем кортеж от функции, где 0-ой элемент - словарь из базы
+                                                    # а 1-ый - список новых тэгов
+        dict_updater: Dict[str, List[str]] = {tag: new_value[0]}  # Создаем переменную для обновления словаря, в виде
+                                                                # {Тэг: словарь из базы}
         problems_dict.update(dict_updater)
         new_tags += new_value[1]
 
     cutted_words_list: List[str] = cutter(splited_problem_text)
-    calebrated_words_list = weight_input_calibrator(cutted_words_list)
+    calebrated_words_list = weight_input_calibrator(cutted_words_list)  # выставление веса для входной строки
 
     for tag in tags:
-        dict_value = problems_dict.get(tag)
-        words_list = json.dumps(calebrated_words_list if dict_value == ['']
+        dict_value = problems_dict.get(tag)  # Получаем словарь из слов с их весом из базы для определенной ошибки
+        words_list = json.dumps(calebrated_words_list if dict_value == []
                                 else words_list_gen(calebrated_words_list, dict_value))
         sql_select_tags(tag, words_list)
-        if new_tags:
-            for new_tag in new_tags:
-                sql_insert(cursor, new_tag, words_list)
+
+    if new_tags != []:  # Если существуют новые ошибки, которых нет в базе
+        words_list = json.dumps(calebrated_words_list)  # Создаем переменную в формате json для внесения в базу
+        for new_tag in new_tags:
+            sql_insert(cursor, new_tag, words_list)
 
     sql_close()
 
 
-MOCK_PROBLEM_TEXT: str = 'Я совершил ошибку и всегда буду их совершать!!!!!!!'.lower()
+MOCK_PROBLEM_TEXT: str = 'Я совершил ошибку и всегда буду не их совершать!!!!!!!'.lower()
 MOCK_PROBLEM_TAGS: list = ['max']
 
 update_problems_dict(MOCK_PROBLEM_TEXT, MOCK_PROBLEM_TAGS)

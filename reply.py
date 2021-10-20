@@ -1,23 +1,19 @@
-from helper import sanitizer, cutter, dict_creater, found_duplication
+from helper import sanitizer, cutter, found_duplication
 from sql import cursor, database_loads
-from typing import List
+from typing import List, Dict
 
 
-def reply_output(text: str, output_from_database: List) -> List[str]:
+def reply_output(text: str, dict_output: List[Dict[str, Dict[str, int]]]) -> List[str]:
     output_size = 3
-
-    dict_output: dict = dict_creater(output_from_database)
 
     clear_problem_text: str = sanitizer(text)  # Удаление знаков припенания
     splited_problem_text: list = clear_problem_text.split()
 
-    default_weight_list = []
-    for element in output_from_database:
-        default_weight_list.append([element[0], 0])
+    default_weight_list = {}.fromkeys(dict_output.keys(), 0)  # создаем словарь для определения веса тэга, по умолчанию 0
 
     cutted_words_list: list = cutter(splited_problem_text)
 
-    reply_list: list = found_duplication(dict_output, default_weight_list, cutted_words_list)
+    reply_list: list = found_duplication(dict_output, default_weight_list, cutted_words_list)  # отправляем значения в функцию для определения веса тэга
     reply_list.sort(key=lambda x: x[1], reverse=True)
 
     ans = []
@@ -31,6 +27,6 @@ def reply_output(text: str, output_from_database: List) -> List[str]:
 
 
 MOCK_PROBLEM_TEXT: str = 'Я совершил ошибку и всегда буду их совершать!!!!!!!'.lower()
-DATABASE_OUTPUT: list = database_loads(cursor)
+DATABASE_OUTPUT: List[Dict[str, Dict[str, int]]] = database_loads(cursor)
 
 print(reply_output(MOCK_PROBLEM_TEXT, DATABASE_OUTPUT))
