@@ -1,6 +1,5 @@
 import string
 import json
-from sql import sql_fetch
 from typing import List
 
 
@@ -24,19 +23,15 @@ def cutter(text: List[str]) -> List:
     return []
 
 
-def appends(cursor, tag_name: str) -> List[str]:
-    new_tags = []  # Создаем список для новых ошибок (тэгов)
-    rows = sql_fetch(cursor, tag_name)  # Получаем значения из базы для конкретной ошибки в формате json в виде списка
+def appends(rows: str) -> List[str]:
     tag_list_name = {}
     for row in rows:
         tag_list_name = json.loads(row[1])  # Преобразуем данные из формата json и берем только словарь из слов+их веса
-
-    if rows == []:  # Если для конкретной ошибки пустой вывод, то этой ошибки нет в базе
-        new_tags.append(tag_name)  # Добавляем ее название в список для новых ошибок
-    return tag_list_name, new_tags
+    return tag_list_name
 
 
-def words_list_gen(lists: dict, tag_dict: dict) -> dict:
+def words_dict_gen(lists: dict, tag_dict: dict) -> dict:
+
     input_dict_keys = lists.keys()  # Получаем все слова из словаря со входными данными
     database_dict_keys = tag_dict.keys()  # Получаем все слова из словаря из базы данных
 
@@ -51,9 +46,7 @@ def words_list_gen(lists: dict, tag_dict: dict) -> dict:
 
 
 def sanitizer(clear_text: str) -> str:
-    punc = string.punctuation  # Создаем переменную для хранения всех знаков пунктуации из модуля string
-    clear_text = clear_text.strip(punc)  # Очищаем входную строку от всех элементов переменной punc
-    return clear_text
+    return clear_text.strip(string.punctuation)
 
 
 def found_duplication(data_dict: dict, weight_dict: dict, words_list: list) -> list:
@@ -74,11 +67,11 @@ def found_duplication(data_dict: dict, weight_dict: dict, words_list: list) -> l
     return return_list
 
 
-def weight_input_calibrator(text: list) -> list:
-    if text != ['']:  # Проверка входных данных
-        text_dict = {}  # Создаем словарь, в котором будут храниться слова + их вес
-        for value in text:
-            new_values = {value: (len(value) // 5) + 1}  # Создаем переменную для обновления словаря в виде: {слово: вес}
-            text_dict.update(new_values)  # Обновляем словарь
-        return text_dict
-    return {}
+def weight_input_calibrator(text: list) -> dict:
+    if text == ['']:
+        return {}  # Проверка входных данных
+    text_dict = {}  # Создаем словарь, в котором будут храниться слова + их вес
+    for value in text:
+        new_values = {value: (len(value) // 5) + 1}  # Создаем переменную для обновления словаря в виде: {слово: вес}
+        text_dict.update(new_values)  # Обновляем словарь
+    return text_dict

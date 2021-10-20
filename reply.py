@@ -3,7 +3,7 @@ from sql import cursor, database_loads
 from typing import List, Dict
 
 
-def reply_output(text: str, dict_output: List[Dict[str, Dict[str, int]]]) -> List[str]:
+def reply_output(text: str, dict_output: Dict[str, Dict[str, int]]) -> List[str]:
     output_size = 3
 
     clear_problem_text: str = sanitizer(text)  # Удаление знаков припенания

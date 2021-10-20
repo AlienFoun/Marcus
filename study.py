@@ -1,6 +1,6 @@
 import json
-from helper import appends, words_list_gen, sanitizer, cutter, weight_input_calibrator
-from sql import cursor, sql_select_tags, sql_close, sql_insert
+from helper import appends, words_dict_gen, sanitizer, cutter, weight_input_calibrator
+from sql import cursor, sql_select_tags, sql_close, sql_insert, sql_fetch
 from typing import Dict, List
 
 
@@ -11,13 +11,18 @@ def update_problems_dict(text: str, tags: List[str]) -> None:
     problems_dict = {}
     new_tags = []
 
+
     for tag in tags:
-        new_value: List[str] = appends(cursor, tag)  # Получаем кортеж от функции, где 0-ой элемент - словарь из базы
+        rows = sql_fetch(cursor, tag)  # Получаем значения из базы для конкретной ошибки в формате json в виде списка
+
+        if rows == []:  # Если для конкретной ошибки пустой вывод, то этой ошибки нет в базе
+            new_tags.append(tag)  # Добавляем ее название в список для новых ошибок
+
+        new_value: List[str] = appends(rows)  # Получаем кортеж от функции, где 0-ой элемент - словарь из базы
                                                     # а 1-ый - список новых тэгов
-        dict_updater: Dict[str, List[str]] = {tag: new_value[0]}  # Создаем переменную для обновления словаря, в виде
+        dict_updater: Dict[str, List[str]] = {tag: new_value}  # Создаем переменную для обновления словаря, в виде
                                                                 # {Тэг: словарь из базы}
         problems_dict.update(dict_updater)
-        new_tags += new_value[1]
 
     cutted_words_list: List[str] = cutter(splited_problem_text)
     calebrated_words_list = weight_input_calibrator(cutted_words_list)  # выставление веса для входной строки
@@ -25,7 +30,7 @@ def update_problems_dict(text: str, tags: List[str]) -> None:
     for tag in tags:
         dict_value = problems_dict.get(tag)  # Получаем словарь из слов с их весом из базы для определенной ошибки
         words_list = json.dumps(calebrated_words_list if dict_value == []
-                                else words_list_gen(calebrated_words_list, dict_value))
+                                else words_dict_gen(calebrated_words_list, dict_value))
         sql_select_tags(tag, words_list)
 
     if new_tags != []:  # Если существуют новые ошибки, которых нет в базе
