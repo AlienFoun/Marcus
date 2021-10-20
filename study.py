@@ -11,17 +11,16 @@ def update_problems_dict(text: str, tags: List[str]) -> None:
     problems_dict = {}
     new_tags = []
 
-
     for tag in tags:
         rows = sql_fetch(cursor, tag)  # Получаем значения из базы для конкретной ошибки в формате json в виде списка
 
-        if rows == []:  # Если для конкретной ошибки пустой вывод, то этой ошибки нет в базе
+        if not rows:  # Если для конкретной ошибки пустой вывод, то этой ошибки нет в базе
             new_tags.append(tag)  # Добавляем ее название в список для новых ошибок
 
-        new_value: List[str] = appends(rows)  # Получаем кортеж от функции, где 0-ой элемент - словарь из базы
-                                                    # а 1-ый - список новых тэгов
-        dict_updater: Dict[str, List[str]] = {tag: new_value}  # Создаем переменную для обновления словаря, в виде
-                                                                # {Тэг: словарь из базы}
+        new_value: dict = appends(rows)  # Получаем кортеж от функции, где 0-ой элемент - словарь из базы
+        # а 1-ый - список новых тэгов
+        dict_updater: Dict[str, dict] = {tag: new_value}  # Создаем переменную для обновления словаря, в виде
+        # {Тэг: словарь из базы}
         problems_dict.update(dict_updater)
 
     cutted_words_list: List[str] = cutter(splited_problem_text)
@@ -33,7 +32,7 @@ def update_problems_dict(text: str, tags: List[str]) -> None:
                                 else words_dict_gen(calebrated_words_list, dict_value))
         sql_select_tags(tag, words_list)
 
-    if new_tags != []:  # Если существуют новые ошибки, которых нет в базе
+    if new_tags:  # Если существуют новые ошибки, которых нет в базе
         words_list = json.dumps(calebrated_words_list)  # Создаем переменную в формате json для внесения в базу
         for new_tag in new_tags:
             sql_insert(cursor, new_tag, words_list)

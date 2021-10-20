@@ -56,14 +56,13 @@ class TestCutter(unittest.TestCase):
         self.assertEqual(weight_input_calibrator(['2342324', '234234', '333']), {'2342324': 2, '234234': 2, '333': 1})
         self.assertEqual(weight_input_calibrator(['']), {})
 
-
     def test_dict_gen(self) -> None:
         self.assertEqual(words_dict_gen({'я': 1, 'не': 1, 'люблю': 2}, {'я': 1, 'тебя': 1, 'люблю': 2}),
                          {'я': 2, 'тебя': 1, 'люблю': 4, 'не': 1})
         self.assertEqual(words_dict_gen({}, {'я': 1, 'тебя': 1, 'люблю': 2}), {'я': 1, 'тебя': 1, 'люблю': 2})
         self.assertEqual(words_dict_gen({'ывппвыыва': 2, 'ываывавыоадл': 3}, {'я': 1, 'тебя': 1, 'люблю': 2}),
                          {'я': 1, 'тебя': 1, 'люблю': 2, 'ывппвыыва': 2, 'ываывавыоадл': 3})
-        self.assertEqual(words_dict_gen({'2342324': 2, '234234': 2, '333': 1},  {'я': 1, 'тебя': 1, 'люблю': 2}),
+        self.assertEqual(words_dict_gen({'2342324': 2, '234234': 2, '333': 1}, {'я': 1, 'тебя': 1, 'люблю': 2}),
                          {'я': 1, 'тебя': 1, 'люблю': 2, '2342324': 2, '234234': 2, '333': 1})
 
 

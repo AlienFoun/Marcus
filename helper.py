@@ -23,7 +23,7 @@ def cutter(text: List[str]) -> List:
     return []
 
 
-def appends(rows: str) -> List[str]:
+def appends(rows: list) -> dict:
     tag_list_name = {}
     for row in rows:
         tag_list_name = json.loads(row[1])  # Преобразуем данные из формата json и берем только словарь из слов+их веса
