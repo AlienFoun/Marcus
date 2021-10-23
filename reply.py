@@ -1,4 +1,4 @@
-from helper import sanitizer, cutter, found_duplication
+from helper import cutter, found_duplication
 from sql import database_loads
 from typing import List, Dict
 
@@ -10,8 +10,7 @@ def reply_output(text: str) -> List[str]:
 
     output_size = 3
 
-    clear_problem_text: str = sanitizer(lower_text)  # Удаление знаков припенания
-    splited_problem_text: list = clear_problem_text.split()
+    splited_problem_text: list = lower_text.split()
 
     default_weight_list = {}.fromkeys(DATABASE_OUTPUT.keys(), 0)  # создаем словарь для определения веса тэга, по умолчанию 0
 

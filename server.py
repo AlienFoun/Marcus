@@ -2,6 +2,7 @@ from flask import Flask
 from flask_restful import Api, Resource, reqparse
 from reply import reply_output
 from study import update_problems_dict
+from helper import sanitizer
 
 app = Flask(__name__)
 api = Api(app)
@@ -18,7 +19,9 @@ class Study(Resource):
         parser.add_argument("user_tags", action='append')
         params = parser.parse_args()
 
-        update_problems_dict(params['user_text'], params['user_tags'])
+        sanitized_text = sanitizer(params['user_text'])
+
+        update_problems_dict(sanitized_text, params['user_tags'])
 
 
 class Reply(Resource):
@@ -29,14 +32,15 @@ class Reply(Resource):
         params = parser.parse_args()
 
         input_text = params['user_text']
+        sanitized_input_text = sanitizer(input_text)
 
-        output_list = reply_output(input_text)
+        output_list = reply_output(sanitized_input_text)
 
         return output_list, 201
 
 
-api.add_resource(Reply, "/reply", "/reply/")
 api.add_resource(Study, "/study", "/study/")
+api.add_resource(Reply, "/reply", "/reply/")
 
 if __name__ == '__main__':
     app.run(host=host, port=port)

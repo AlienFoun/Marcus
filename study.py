@@ -1,5 +1,5 @@
 import json
-from helper import appends, words_dict_gen, sanitizer, cutter, weight_input_calibrator
+from helper import appends, words_dict_gen, cutter, weight_input_calibrator
 from sql import sql_update, sql_close, sql_insert, sql_fetch
 from typing import Dict, List
 
@@ -7,8 +7,7 @@ from typing import Dict, List
 def update_problems_dict(text: str, tags: str) -> None:
     lower_text = text.lower()
 
-    clear_problem_text: str = sanitizer(lower_text)  # Удаление знаков припенания
-    splited_problem_text: list = clear_problem_text.split()
+    splited_problem_text: list = lower_text.split()
 
     problems_dict = {}
     new_tags = []
