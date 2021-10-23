@@ -15,7 +15,7 @@ class Study(Resource):
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument("user_text")
-        parser.add_argument("user_tags")
+        parser.add_argument("user_tags", action='append')
         params = parser.parse_args()
 
         update_problems_dict(params['user_text'], params['user_tags'])

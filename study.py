@@ -5,7 +5,6 @@ from typing import Dict, List
 
 
 def update_problems_dict(text: str, tags: str) -> None:
-    splited_tags = tags.split(', ')
     lower_text = text.lower()
 
     clear_problem_text: str = sanitizer(lower_text)  # Удаление знаков припенания
@@ -14,7 +13,7 @@ def update_problems_dict(text: str, tags: str) -> None:
     problems_dict = {}
     new_tags = []
 
-    for tag in splited_tags:
+    for tag in tags:
         rows = sql_fetch(tag)  # Получаем значения из базы для конкретной ошибки в формате json в виде списка
 
         if not rows:  # Если для конкретной ошибки пустой вывод, то этой ошибки нет в базе
@@ -29,7 +28,7 @@ def update_problems_dict(text: str, tags: str) -> None:
     cutted_words_list: List[str] = cutter(splited_problem_text)
     calebrated_words_list = weight_input_calibrator(cutted_words_list)  # выставление веса для входной строки
 
-    for tag in splited_tags:
+    for tag in tags:
         dict_value = problems_dict.get(tag)  # Получаем словарь из слов с их весом из базы для определенной ошибки
         words_list = json.dumps(calebrated_words_list if dict_value == []
                                 else words_dict_gen(calebrated_words_list, dict_value))
