@@ -1,28 +1,39 @@
-from http.server import HTTPServer, BaseHTTPRequestHandler
+from flask import Flask
+from flask_restful import Api, Resource, reqparse
 from reply import reply_output
-import json
+from study import update_problems_dict
 
-hostname = 'localhost'
-port = 4000
+app = Flask(__name__)
+api = Api(app)
 
 
-class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
+class Study(Resource):
 
-    def do_POST(self):
-        content_length = int(self.headers['Content-Length'])
-        input_data = self.rfile.read(content_length)
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument("user_text")
+        parser.add_argument("user_tags")
+        params = parser.parse_args()
 
-        self.send_response(200)
-        self.send_header('Content-type', 'text')
-        self.end_headers()
+        update_problems_dict(params['user_text'], params['user_tags'])
 
-        input_text = json.loads(input_data)
+
+class Reply(Resource):
+
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument("user_text")
+        params = parser.parse_args()
+
+        input_text = params['user_text']
 
         output_list = reply_output(input_text)
-        output_data = json.dumps(output_list)
 
-        self.wfile.write(output_data.encode('utf-8'))
+        return output_list, 201
 
 
-httpd = HTTPServer((hostname, port), SimpleHTTPRequestHandler)
-httpd.serve_forever()
+api.add_resource(Reply, "/reply", "/reply/")
+api.add_resource(Study, "/study", "/study/")
+
+if __name__ == '__main__':
+    app.run()
