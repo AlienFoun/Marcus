@@ -52,3 +52,4 @@ def database_loads() -> Dict[str, Dict[str, int]]:
 con = sql.connect('Database.db', check_same_thread=False)  # подключение к бд
 cursor = con.cursor()
 cursor.execute("CREATE TABLE IF NOT EXISTS `Tags` (`Tag` STRING, `Words` STRING)")
+
