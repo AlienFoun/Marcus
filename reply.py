@@ -1,14 +1,16 @@
 from helper import sanitizer, cutter, found_duplication
-from sql import cursor, database_loads
+from sql import database_loads
 from typing import List, Dict
 
 
 def reply_output(text: str) -> List[str]:
-    DATABASE_OUTPUT: List[Dict[str, Dict[str, int]]] = database_loads(cursor)
+    lower_text = text.lower()
+
+    DATABASE_OUTPUT: List[Dict[str, Dict[str, int]]] = database_loads()
 
     output_size = 3
 
-    clear_problem_text: str = sanitizer(text)  # Удаление знаков припенания
+    clear_problem_text: str = sanitizer(lower_text)  # Удаление знаков припенания
     splited_problem_text: list = clear_problem_text.split()
 
     default_weight_list = {}.fromkeys(DATABASE_OUTPUT.keys(), 0)  # создаем словарь для определения веса тэга, по умолчанию 0
@@ -28,5 +30,5 @@ def reply_output(text: str) -> List[str]:
     return output_list
 
 
-MOCK_PROBLEM_TEXT: str = 'Я совершил ошибку и всегда буду их совершать!!!!!!!'.lower()
+#MOCK_PROBLEM_TEXT: str = 'Я совершил ошибку и всегда буду их совершать!!!!!!!'.lower()
 
