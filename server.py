@@ -6,6 +6,9 @@ from study import update_problems_dict
 app = Flask(__name__)
 api = Api(app)
 
+host = '127.0.0.1'
+port = 4000
+
 
 class Study(Resource):
 
@@ -36,4 +39,4 @@ api.add_resource(Reply, "/reply", "/reply/")
 api.add_resource(Study, "/study", "/study/")
 
 if __name__ == '__main__':
-    app.run(host="127.0.0.1", port=4000)
+    app.run(host=host, port=port)
