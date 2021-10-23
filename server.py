@@ -36,4 +36,4 @@ api.add_resource(Reply, "/reply", "/reply/")
 api.add_resource(Study, "/study", "/study/")
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host="127.0.0.1", port=4000)
