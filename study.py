@@ -30,11 +30,11 @@ def update_problems_dict(text: str, tags: str) -> None:
     for tag in tags:
         dict_value = problems_dict.get(tag)  # Получаем словарь из слов с их весом из базы для определенной ошибки
         words_list = json.dumps(calebrated_words_list if dict_value == []
-                                else words_dict_gen(calebrated_words_list, dict_value))
+                                else words_dict_gen(calebrated_words_list, dict_value), ensure_ascii=False)
         sql_update(tag, words_list)
 
     if new_tags:  # Если существуют новые ошибки, которых нет в базе
-        words_list = json.dumps(calebrated_words_list)  # Создаем переменную в формате json для внесения в базу
+        words_list = json.dumps(calebrated_words_list, ensure_ascii=False)  # Создаем переменную в формате json для внесения в базу
         for new_tag in new_tags:
             sql_insert(new_tag, words_list)
 

@@ -1,5 +1,5 @@
-import string
 import json
+import string
 from typing import List
 
 
@@ -31,7 +31,6 @@ def appends(rows: list) -> dict:
 
 
 def words_dict_gen(lists: dict, tag_dict: dict) -> dict:
-
     input_dict_keys = lists.keys()  # Получаем все слова из словаря со входными данными
     database_dict_keys = tag_dict.keys()  # Получаем все слова из словаря из базы данных
 

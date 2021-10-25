@@ -6,8 +6,9 @@ from helper import sanitizer
 
 app = Flask(__name__)
 api = Api(app)
+application = app
 
-host = '127.0.0.1'
+host = 'localhost'
 port = 4000
 
 
