@@ -1,5 +1,4 @@
 import json
-
 import pymysql as sql
 from typing import List, Tuple, Dict
 from config import host, user, password, db_name
@@ -58,4 +57,4 @@ con = sql.connect(host=host,
                   password=password,
                   database=db_name)  # подключение к бд
 cursor = con.cursor()
-cursor.execute("CREATE TABLE IF NOT EXISTS `Tags` (tag text, words text)")
+cursor.execute("CREATE TABLE IF NOT EXISTS `Tags` (tag longtext, words longtext)")
