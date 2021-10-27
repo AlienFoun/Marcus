@@ -1,15 +1,15 @@
 # <p align="center">Marcus</p>
 <p align="center"><img alt="GitHub Madeby" src="https://img.shields.io/badge/made%20by-AlienFoun-blue"> <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/AlienFoun/Marcus"> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/AlienFoun/Marcus?style=social"> <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/AlienFoun/Marcus"> </p>
 
-## About
+# About
 **The program allows you to categorize text information based on downloaded examples**
 
-## Project structure
+# Project structure
 The project is structured for better scaling. In general, files names reflect their essence
 * helper - contains the functions necessary for the program to work
 * sql and config - contains the functions necessary for the program to work with MySQL database
 
-## Selected libraries
+# Selected libraries
 * Flask
 * Flask-RESTful
 * Flask-CORS
@@ -19,7 +19,7 @@ The project is structured for better scaling. In general, files names reflect th
 * Json
 * String
 
-## Installation
+# Installation
 Download Python 3.8 or higher
 
 ```
@@ -30,7 +30,7 @@ pip install -r requirements.txt
 
 Fill in the data to connect to the MySQL database in the file `setup.py`
 
-## Usage
+# Usage
 
 Open the terminal and go to the folder with the project, then start the server using the command `py server.py` after that, an API will be available to you, with which you can perform basic actions with the program
 
@@ -61,9 +61,9 @@ The data transmitted by the API for the response must also be presented in json 
 	"user_text": "text"
 }
 ```
-## How it works?
+# How it works?
 
-### Study algorithm
+## Study algorithm
 
 After entering the program, the user's text will be cleared of any punctuation marks using the sanitizer function.
 
@@ -91,7 +91,7 @@ After that, this dictionary will be loaded into the database along with the tags
 | Tag | {'have': 1, 'problem': 2, 'I have': 2, 'have a': 2, 'a problem': 2, 'I have a': 2, 'have a problem': 3, 'I have a problem': 4} |
 
 
-### Reply algorithm
+## Reply algorithm
 
 After entering the program, the user's text will be cleared of any punctuation marks using the sanitizer function.
 
@@ -105,11 +105,11 @@ After that, the text will be divided into fragments, first by 1 word, by 2, 3, e
 ```
 Next, all the data for each category will be loaded from the database, after which the words of the input text will be compared with the words from the database and a list consisting of categories and their weights for a specific input text will be created. The list will be sorted and the first three categories will be displayed.
 
-## Testing
+# Testing
 
 For UNIT testing of functions, the unittest library is used. I have shown an example of testing the functions cutter, found_duplication, reply_output, weight_out_calibrator and word_dict_gen. In the examples, the output values of the function are based on the input data, with the specified output parameters.
 
-## Contributions
+# Contributions
 
 You can contribute to project in the following ways:
 
