@@ -11,7 +11,7 @@ CORS(app)
 api = Api(app)
 application = app
 
-host = 'marcus-program.ru'
+host = 'localhost'
 port = 4000
 
 
@@ -34,7 +34,6 @@ class Reply(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument("user_text")
         params = parser.parse_args()
-        print(params['user_text'])
 
         input_text = params['user_text']
         sanitized_input_text = sanitizer(input_text)
