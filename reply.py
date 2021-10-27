@@ -1,12 +1,10 @@
 from helper import cutter, found_duplication
 from sql import database_loads
-from typing import List, Dict
+from typing import List
 
 
-def reply_output(text: str) -> List[str]:
+def reply_output(text: str, DATABASE_OUTPUT = database_loads()) -> List[str]:
     lower_text = text.lower()
-
-    DATABASE_OUTPUT: List[Dict[str, Dict[str, int]]] = database_loads()
 
     output_size = 3
 
