@@ -1,14 +1,17 @@
 from flask import Flask
 from flask_restful import Api, Resource, reqparse
+from flask_cors import CORS
 from reply import reply_output
 from study import update_problems_dict
 from helper import sanitizer
 
 app = Flask(__name__)
+CORS(app)
+
 api = Api(app)
 application = app
 
-host = 'localhost'
+host = 'marcus-program.ru'
 port = 4000
 
 
@@ -31,13 +34,14 @@ class Reply(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument("user_text")
         params = parser.parse_args()
+        print(params['user_text'])
 
         input_text = params['user_text']
         sanitized_input_text = sanitizer(input_text)
 
         output_list = reply_output(sanitized_input_text)
 
-        return output_list, 201
+        return output_list
 
 
 api.add_resource(Study, "/study", "/study/")
