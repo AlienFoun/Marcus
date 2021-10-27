@@ -1,5 +1,5 @@
 # <p align="center">Marcus</p>
-<p align="center"><img alt="GitHub Madeby" src="https://img.shields.io/badge/made%20by-AlienFoun-blue"> <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/AlienFoun/Marcus"> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/AlienFoun/Marcus?style=social"> <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/AlienFoun/Marcus"> </p>
+<p align="center"><img alt="GitHub Madeby" src="https://img.shields.io/badge/made%20by-AlienFoun-blue"> <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/AlienFoun/Marcus"> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/Alienfoun/marcus?style=social"> <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/AlienFoun/Marcus"> </p>
 
 # About
 **The program allows you to categorize text information based on downloaded examples**
