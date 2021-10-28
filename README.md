@@ -105,6 +105,22 @@ After that, the text will be divided into fragments, first by 1 word, by 2, 3, e
 ```
 Next, all the data for each category will be loaded from the database, after which the words of the input text will be compared with the words from the database and a list consisting of categories and their weights for a specific input text will be created. The list will be sorted and the first three categories will be displayed.
 
+### Example
+
+Input text:
+```Python
+{
+	"user_text": "I have a problem"
+}
+```
+
+Output message:
+
+```Python
+[
+  	"Tag1"
+]
+```
 # Testing
 
 For UNIT testing of functions, the unittest library is used. I have shown an example of testing the functions cutter, found_duplication, reply_output, weight_out_calibrator and word_dict_gen. In the examples, the output values of the function are based on the input data, with the specified output parameters.
