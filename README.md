@@ -118,7 +118,7 @@ Output message:
 
 ```Python
 [
-  	"Tag1"
+  	"tag1", "tag2", ..., "tagn"
 ]
 ```
 # Testing
