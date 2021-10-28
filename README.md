@@ -3,8 +3,10 @@
 
 # About
 **The program allows you to categorize text information based on downloaded examples. The project was created to interact with the coolswood author's project on the:**
+
 * **[Google Play](https://play.google.com/store/apps/details?id=com.coffye.mindhealthy&hl=ru&gl=US)**
 * **[App Store](https://apps.apple.com/ru/app/дневник-ментального-здоровья/id1568125612)**
+
 **but it can also function as a separate system**
 
 # Project structure
