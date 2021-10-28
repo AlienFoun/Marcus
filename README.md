@@ -2,7 +2,10 @@
 <p align="center"><img alt="GitHub Madeby" src="https://img.shields.io/badge/made%20by-AlienFoun-blue"> <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/AlienFoun/Marcus"> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/Alienfoun/marcus?style=social"> <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/AlienFoun/Marcus"> </p>
 
 # About
-**The program allows you to categorize text information based on downloaded examples**
+**The program allows you to categorize text information based on downloaded examples. The project was created to interact with the coolswood author's project on the:**
+* **[Google Play](https://play.google.com/store/apps/details?id=com.coffye.mindhealthy&hl=ru&gl=US)**
+* **[App Store](https://apps.apple.com/ru/app/дневник-ментального-здоровья/id1568125612)**
+**but it can also function as a separate system**
 
 # Project structure
 The project is structured for better scaling. In general, files names reflect their essence
