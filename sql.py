@@ -19,9 +19,9 @@ def sql_insert(tag_name: str, words_list: str) -> None:
     cur.close()
 
 
-def sql_fetch(tag_list: tuple) -> List[Tuple[str]]:
+def sql_fetch(tag_name: str) -> List[Tuple[str]]:
     cur = con.cursor()
-    cur.execute(f"select words from `Tags` where tag in {tag_list}")
+    cur.execute(f"select words from `Tags` where tag='{tag_name}'")
     rows = cur.fetchall()
     cur.close()
     return rows
