@@ -39,7 +39,8 @@ def words_dict_gen(lists: dict, tag_dict: dict) -> dict:
 
 
 def sanitizer(clear_text: str) -> str:
-    return clear_text.translate({ord(i): None for i in string.punctuation})
+    return clear_text.translate({ord(i): None for i in string.punctuation})  # заменяем все элементы из входной
+    # строки, которые совпадают с элементами из string.punctuation на None
 
 
 def found_duplication(data_dict: dict, weight_dict: dict, words_list: list) -> list:
