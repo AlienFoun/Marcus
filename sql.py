@@ -5,6 +5,7 @@ from config import host, user, password, db_name
 
 
 def sql_update(tag_name: str, words_list: str) -> None:
+    con.ping()
     cur = con.cursor()
     cur.execute(f"UPDATE `Tags` SET words = '{words_list}' WHERE tag = '{tag_name}'")
     print('The database has been successfully updated')
@@ -13,6 +14,7 @@ def sql_update(tag_name: str, words_list: str) -> None:
 
 
 def sql_insert(tag_name: str, words_list: str) -> None:
+    con.ping()
     cur = con.cursor()
     cur.execute(f"INSERT INTO `Tags` (tag, words) VALUES ('{tag_name}', '{words_list}')")
     con.commit()
@@ -20,6 +22,7 @@ def sql_insert(tag_name: str, words_list: str) -> None:
 
 
 def sql_fetch(tag_name: str) -> List[Tuple[str]]:
+    con.ping()
     cur = con.cursor()
     cur.execute(f"select * from `Tags` where tag='{tag_name}'")
     rows = cur.fetchall()
@@ -28,10 +31,12 @@ def sql_fetch(tag_name: str) -> List[Tuple[str]]:
 
 
 def sql_close() -> None:
+    con.ping()
     con.commit()
 
 
 def sql_set_default() -> None:
+    con.ping()
     cur = con.cursor()
     default_value = {}
     cur.execute(f"UPDATE `Tags` SET words = '{default_value}'")
@@ -40,12 +45,13 @@ def sql_set_default() -> None:
 
 
 def database_loads() -> Dict[str, Dict[str, int]]:
+    con.ping()
     cur = con.cursor()
     cur.execute('SELECT * FROM `Tags`')
     data_output = cur.fetchall()
     dict_data = {}
     for diction in data_output:
-        updater = {diction[0]: json.loads(diction[1])}
+        updater = {diction[1]: json.loads(diction[2])}
         dict_data.update(updater)
     cur.close()
     return dict_data
@@ -55,6 +61,7 @@ con = sql.connect(host=host,
                   port=3306,
                   user=user,
                   password=password,
-                  database=db_name)  # подключение к бд
+                  database=db_name)
+
 cursor = con.cursor()
-cursor.execute("CREATE TABLE IF NOT EXISTS `Tags` (tag longtext, words longtext)")
+cursor.execute("CREATE TABLE IF NOT EXISTS `Tags` (id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, tag text, words longtext)")

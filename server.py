@@ -5,6 +5,7 @@ from reply import reply_output
 from study import update_problems_dict
 from helper import sanitizer
 
+
 app = Flask(__name__)
 CORS(app)
 
@@ -26,6 +27,8 @@ class Study(Resource):
         sanitized_text = sanitizer(params['user_text'])
 
         update_problems_dict(sanitized_text, params['user_tags'])
+
+        return 'OK'
 
 
 class Reply(Resource):

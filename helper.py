@@ -27,7 +27,7 @@ def cutter(text: List[str]) -> List:
 def appends(rows: list) -> dict:
     tag_list_name = {}
     for row in rows:
-        tag_list_name = json.loads(row[1])  # Преобразуем данные из формата json и берем только словарь из слов+их веса
+        tag_list_name = json.loads(row[2])  # Преобразуем данные из формата json и берем только словарь из слов+их веса
     return tag_list_name
 
 
@@ -46,7 +46,7 @@ def words_dict_gen(lists: dict, tag_dict: dict) -> dict:
 
 
 def sanitizer(clear_text: str) -> str:
-    return clear_text.strip(string.punctuation)
+    return clear_text.translate({ord(i): None for i in string.punctuation})
 
 
 def found_duplication(data_dict: dict, weight_dict: dict, words_list: list) -> list:
