@@ -17,7 +17,7 @@ def update_problems_dict(text: str, tags: list) -> None:
         if not rows:  # Если для конкретной ошибки пустой вывод, то этой ошибки нет в базе
             new_tags.append(tag)  # Добавляем ее название в список для новых ошибок
 
-        new_value: dict = json.loads(rows[0][1]) if rows else {}
+        new_value: dict = json.loads(rows[0][0]) if rows else {}
 
         dict_updater: Dict[str, dict] = {tag: new_value}  # Создаем переменную для обновления словаря, в виде
         # {Тэг: словарь из базы}

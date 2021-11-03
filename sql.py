@@ -14,14 +14,14 @@ def sql_update(tag_name: str, words_list: str) -> None:
 
 def sql_insert(tag_name: str, words_list: str) -> None:
     cur = con.cursor()
-    cur.execute(f"INSERT INTO `Tags` (tag, words) VALUES ('{tag_name}', '{words_list}')")
+    cur.execute(f"INSERT INTO `Tags` words VALUES ('{tag_name}', '{words_list}')")
     con.commit()
     cur.close()
 
 
 def sql_fetch(tag_name: str) -> List[Tuple[str]]:
     cur = con.cursor()
-    cur.execute(f"select tag, words from `Tags` where tag='{tag_name}'")
+    cur.execute(f"select words from `Tags` where tag='{tag_name}'")
     rows = cur.fetchall()
     cur.close()
     return rows
