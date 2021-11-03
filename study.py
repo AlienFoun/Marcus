@@ -10,16 +10,18 @@ def update_problems_dict(text: str, tags: list) -> None:
 
     problems_dict = {}
     new_tags = []
+    tuple_tags = tuple(tags)
 
-    for tag in tags:
-        rows = sql_fetch(tag)  # Получаем значения из базы для конкретной ошибки в формате json в виде списка
+    rows = sql_fetch(tuple_tags)  # Получаем значения из базы для ошибок в формате json в виде списка
 
-        if not rows:  # Если для конкретной ошибки пустой вывод, то этой ошибки нет в базе
-            new_tags.append(tag)  # Добавляем ее название в список для новых ошибок
+    for i in range(len(tags)):
 
-        new_value: dict = json.loads(rows[0][0]) if rows else {}
+        if not rows[i]:  # Если для конкретной ошибки пустой вывод, то этой ошибки нет в базе
+            new_tags.append(tags[i])  # Добавляем ее название в список для новых ошибок
 
-        dict_updater: Dict[str, dict] = {tag: new_value}  # Создаем переменную для обновления словаря, в виде
+        new_value: dict = json.loads(rows[i][0]) if rows else {}
+
+        dict_updater: Dict[str, dict] = {tags[i]: new_value}  # Создаем переменную для обновления словаря, в виде
         # {Тэг: словарь из базы}
         problems_dict.update(dict_updater)
 
