@@ -58,4 +58,4 @@ con = sql.connect(host=host,
                   database=db_name)
 
 cursor = con.cursor()
-cursor.execute("CREATE TABLE IF NOT EXISTS `Tags` (id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, tag text, words longtext)")
+cursor.execute("CREATE TABLE IF NOT EXISTS `Tags` (id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, tag text NOT NULL, words longtext NOT NULL)")
