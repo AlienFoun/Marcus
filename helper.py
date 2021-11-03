@@ -24,13 +24,6 @@ def cutter(text: List[str]) -> List:
     return []
 
 
-def appends(rows: list) -> dict:
-    tag_list_name = {}
-    for row in rows:
-        tag_list_name = json.loads(row[2])  # Преобразуем данные из формата json и берем только словарь из слов+их веса
-    return tag_list_name
-
-
 def words_dict_gen(lists: dict, tag_dict: dict) -> dict:
     input_dict_keys = lists.keys()  # Получаем все слова из словаря со входными данными
     database_dict_keys = tag_dict.keys()  # Получаем все слова из словаря из базы данных

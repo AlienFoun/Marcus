@@ -5,7 +5,6 @@ from config import host, user, password, db_name
 
 
 def sql_update(tag_name: str, words_list: str) -> None:
-    con.ping()
     cur = con.cursor()
     cur.execute(f"UPDATE `Tags` SET words = '{words_list}' WHERE tag = '{tag_name}'")
     print('The database has been successfully updated')
@@ -14,7 +13,6 @@ def sql_update(tag_name: str, words_list: str) -> None:
 
 
 def sql_insert(tag_name: str, words_list: str) -> None:
-    con.ping()
     cur = con.cursor()
     cur.execute(f"INSERT INTO `Tags` (tag, words) VALUES ('{tag_name}', '{words_list}')")
     con.commit()
@@ -22,21 +20,18 @@ def sql_insert(tag_name: str, words_list: str) -> None:
 
 
 def sql_fetch(tag_name: str) -> List[Tuple[str]]:
-    con.ping()
     cur = con.cursor()
-    cur.execute(f"select * from `Tags` where tag='{tag_name}'")
+    cur.execute(f"select tag, words from `Tags` where tag='{tag_name}'")
     rows = cur.fetchall()
     cur.close()
     return rows
 
 
 def sql_close() -> None:
-    con.ping()
     con.commit()
 
 
 def sql_set_default() -> None:
-    con.ping()
     cur = con.cursor()
     default_value = {}
     cur.execute(f"UPDATE `Tags` SET words = '{default_value}'")
@@ -45,13 +40,12 @@ def sql_set_default() -> None:
 
 
 def database_loads() -> Dict[str, Dict[str, int]]:
-    con.ping()
     cur = con.cursor()
-    cur.execute('SELECT * FROM `Tags`')
+    cur.execute('SELECT tag, words FROM `Tags`')
     data_output = cur.fetchall()
     dict_data = {}
     for diction in data_output:
-        updater = {diction[1]: json.loads(diction[2])}
+        updater = {diction[0]: json.loads(diction[1])}
         dict_data.update(updater)
     cur.close()
     return dict_data

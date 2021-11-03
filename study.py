@@ -1,5 +1,5 @@
 import json
-from helper import appends, words_dict_gen, cutter, weight_input_calibrator
+from helper import words_dict_gen, cutter, weight_input_calibrator
 from sql import sql_update, sql_close, sql_insert, sql_fetch
 from typing import Dict, List
 
@@ -17,8 +17,8 @@ def update_problems_dict(text: str, tags: list) -> None:
         if not rows:  # Если для конкретной ошибки пустой вывод, то этой ошибки нет в базе
             new_tags.append(tag)  # Добавляем ее название в список для новых ошибок
 
-        new_value: dict = appends(rows)  # Получаем кортеж от функции, где 0-ой элемент - словарь из базы
-        # а 1-ый - список новых тэгов
+        new_value: dict = json.loads(rows[0][1]) # Преобразуем данные из формата json и берем только словарь из слов+их веса
+
         dict_updater: Dict[str, dict] = {tag: new_value}  # Создаем переменную для обновления словаря, в виде
         # {Тэг: словарь из базы}
         problems_dict.update(dict_updater)

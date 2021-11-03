@@ -4,7 +4,7 @@ from flask_cors import CORS
 from reply import reply_output
 from study import update_problems_dict
 from helper import sanitizer
-
+from sql import con
 
 app = Flask(__name__)
 CORS(app)
@@ -25,6 +25,7 @@ class Study(Resource):
         params = parser.parse_args()
 
         sanitized_text = sanitizer(params['user_text'])
+        con.ping()
 
         update_problems_dict(sanitized_text, params['user_tags'])
 
@@ -39,7 +40,9 @@ class Reply(Resource):
         params = parser.parse_args()
 
         input_text = params['user_text']
+
         sanitized_input_text = sanitizer(input_text)
+        con.ping()
 
         output_list = reply_output(sanitized_input_text)
 
