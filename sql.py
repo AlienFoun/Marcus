@@ -14,14 +14,14 @@ def sql_update(tag_name: str, words_list: str) -> None:
 
 def sql_insert(tag_name: str, words_list: str) -> None:
     cur = con.cursor()
-    cur.execute(f"INSERT INTO `Tags` (tag, words) VALUES ('{tag_name}', '{words_list}')")
+    cur.execute(f"INSERT INTO `Tags` words VALUES ('{tag_name}', '{words_list}')")
     con.commit()
     cur.close()
 
 
 def sql_fetch(tag_name: str) -> List[Tuple[str]]:
     cur = con.cursor()
-    cur.execute(f"select * from `Tags` where tag='{tag_name}'")
+    cur.execute(f"select words from `Tags` where tag='{tag_name}'")
     rows = cur.fetchall()
     cur.close()
     return rows
@@ -41,7 +41,7 @@ def sql_set_default() -> None:
 
 def database_loads() -> Dict[str, Dict[str, int]]:
     cur = con.cursor()
-    cur.execute('SELECT * FROM `Tags`')
+    cur.execute('SELECT tag, words FROM `Tags`')
     data_output = cur.fetchall()
     dict_data = {}
     for diction in data_output:
@@ -55,6 +55,7 @@ con = sql.connect(host=host,
                   port=3306,
                   user=user,
                   password=password,
-                  database=db_name)  # подключение к бд
+                  database=db_name)
+
 cursor = con.cursor()
-cursor.execute("CREATE TABLE IF NOT EXISTS `Tags` (tag longtext, words longtext)")
+cursor.execute("CREATE TABLE IF NOT EXISTS `Tags` (id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, tag text NOT NULL, words longtext NOT NULL)")

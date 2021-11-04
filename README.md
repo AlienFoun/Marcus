@@ -1,8 +1,13 @@
 # <p align="center">Marcus</p>
-<p align="center"><img alt="GitHub Madeby" src="https://img.shields.io/badge/made%20by-AlienFoun-blue"> <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/AlienFoun/Marcus"> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/AlienFoun/Marcus?style=social"> <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/AlienFoun/Marcus"> </p>
+<p align="center"><img alt="GitHub Madeby" src="https://img.shields.io/badge/made%20by-AlienFoun-blue"> <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/AlienFoun/Marcus"> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/Alienfoun/marcus?style=social"> <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/AlienFoun/Marcus"> </p>
 
 # About
-**The program allows you to categorize text information based on downloaded examples**
+**The program allows you to categorize text information based on downloaded examples. The project was created to interact with the coolswood author's project on the:**
+
+* **[Google Play](https://play.google.com/store/apps/details?id=com.coffye.mindhealthy&hl=ru&gl=US)**
+* **[App Store](https://apps.apple.com/ru/app/дневник-ментального-здоровья/id1568125612)**
+
+**but it can also function as a separate system**
 
 # Project structure
 The project is structured for better scaling. In general, files names reflect their essence
@@ -105,6 +110,22 @@ After that, the text will be divided into fragments, first by 1 word, by 2, 3, e
 ```
 Next, all the data for each category will be loaded from the database, after which the words of the input text will be compared with the words from the database and a list consisting of categories and their weights for a specific input text will be created. The list will be sorted and the first three categories will be displayed.
 
+### Example
+
+Input text:
+```Python
+{
+	"user_text": "I have a problem"
+}
+```
+
+Output message:
+
+```Python
+[
+  	"tag1", "tag2", "tag3"
+]
+```
 # Testing
 
 For UNIT testing of functions, the unittest library is used. I have shown an example of testing the functions cutter, found_duplication, reply_output, weight_out_calibrator and word_dict_gen. In the examples, the output values of the function are based on the input data, with the specified output parameters.

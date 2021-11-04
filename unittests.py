@@ -3,7 +3,7 @@ from helper import cutter, found_duplication, weight_input_calibrator, words_dic
 from reply import reply_output
 
 
-class TestCutter(unittest.TestCase):
+class Testing(unittest.TestCase):
 
     def test_cut(self) -> None:
         self.assertEqual(cutter(['I', 'love', 'you']),

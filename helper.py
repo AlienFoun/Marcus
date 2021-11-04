@@ -1,4 +1,3 @@
-import json
 import string
 from typing import List
 
@@ -24,13 +23,6 @@ def cutter(text: List[str]) -> List:
     return []
 
 
-def appends(rows: list) -> dict:
-    tag_list_name = {}
-    for row in rows:
-        tag_list_name = json.loads(row[1])  # Преобразуем данные из формата json и берем только словарь из слов+их веса
-    return tag_list_name
-
-
 def words_dict_gen(lists: dict, tag_dict: dict) -> dict:
     input_dict_keys = lists.keys()  # Получаем все слова из словаря со входными данными
     database_dict_keys = tag_dict.keys()  # Получаем все слова из словаря из базы данных
@@ -46,7 +38,8 @@ def words_dict_gen(lists: dict, tag_dict: dict) -> dict:
 
 
 def sanitizer(clear_text: str) -> str:
-    return clear_text.strip(string.punctuation)
+    return clear_text.translate({ord(i): None for i in string.punctuation})  # заменяем все элементы из входной
+    # строки, которые совпадают с элементами из string.punctuation на None
 
 
 def found_duplication(data_dict: dict, weight_dict: dict, words_list: list) -> list:
