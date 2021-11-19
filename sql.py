@@ -14,7 +14,7 @@ def sql_update(tag_name: str, words_list: str) -> None:
 
 def sql_insert(tag_name: str, words_list: str) -> None:
     cur = con.cursor()
-    cur.execute(f"INSERT INTO `Tags` words VALUES ('{tag_name}', '{words_list}')")
+    cur.execute(f"INSERT INTO `Tags` (tag, words) VALUES ('{tag_name}', '{words_list}')")
     con.commit()
     cur.close()
 

@@ -4,7 +4,10 @@ from sql import sql_update, sql_close, sql_insert, sql_fetch
 from typing import Dict, List
 
 
-def update_problems_dict(text: str, tags: list) -> None:
+def update_problems_dict(text: str, tags: str, flag=1) -> None:
+
+    if flag == 1:
+        tags = tags.replace(' ', '').split(',')
     lower_problem_text = text.lower()
     splited_problem_text: list = lower_problem_text.split()
 
