@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             name='UpgradeDB',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('tag', models.TextField(help_text='Enter your tag')),
+                ('tags', models.TextField(help_text='Enter your tag')),
                 ('words', models.TextField(help_text='Enter your words')),
             ],
         ),
