@@ -3,7 +3,7 @@ from sql import database_loads
 from typing import List
 
 
-def reply_output(text: str, DATABASE_OUTPUT = database_loads()) -> List[str]:
+def reply_output(text: str, DATABASE_OUTPUT=database_loads()) -> List[str]:
     lower_text = text.lower()
 
     output_size = 3
@@ -14,7 +14,8 @@ def reply_output(text: str, DATABASE_OUTPUT = database_loads()) -> List[str]:
 
     cutted_words_list: list = cutter(splited_problem_text)
 
-    reply_list: list = found_duplication(DATABASE_OUTPUT, default_weight_list, cutted_words_list)  # отправляем значения в функцию для определения веса тэга
+    reply_list: list = found_duplication(DATABASE_OUTPUT, default_weight_list,
+                                         cutted_words_list)  # отправляем значения в функцию для определения веса тэга
     reply_list.sort(key=lambda x: x[1], reverse=True)
 
     output_list = []
@@ -26,6 +27,4 @@ def reply_output(text: str, DATABASE_OUTPUT = database_loads()) -> List[str]:
             return output_list
     return output_list
 
-
-#MOCK_PROBLEM_TEXT: str = 'Я совершил ошибку и всегда буду их совершать!!!!!!!'.lower()
-
+# MOCK_PROBLEM_TEXT: str = 'Я совершил ошибку и всегда буду их совершать!!!!!!!'.lower()
