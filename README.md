@@ -18,6 +18,7 @@ The project is structured for better scaling. In general, files names reflect th
 * Django
 * Djangorestframework
 * Django-rest-knox
+* Django-cors-headers
 * Mysqlclient
 * PyMySQL
 * Typing
