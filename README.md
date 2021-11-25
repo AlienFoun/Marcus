@@ -15,9 +15,10 @@ The project is structured for better scaling. In general, files names reflect th
 * sql and config - contains the functions necessary for the program to work with MySQL database
 
 # Selected libraries
-* Flask
-* Flask-RESTful
-* Flask-CORS
+* Django
+* Djangorestframework
+* Django-rest-knox
+* Mysqlclient
 * PyMySQL
 * Typing
 * Unitest
@@ -33,15 +34,17 @@ cd Marcus
 pip install -r requirements.txt
 ```
 
-Fill in the data to connect to the MySQL database in the file `setup.py`
+Fill in the data to connect to the MySQL database in the file `config.py`
 
 # Usage
 
-Open the terminal and go to the folder with the project, then start the server using the command `py server.py` after that, an API will be available to you, with which you can perform basic actions with the program
+Open the terminal and go to the folder with the project, then start the server using the command `python manage.py runserver` after that, an API will be available to you, with which you can perform basic actions with the program
 
-* The API for training will be available at `http://host:port/study`
+* The API for training will be available at `http://host:port/study/`
 
-* The API for the response will be available at `http://host:port/reply`
+* The API for the response will be available at `http://host:port/reply/`
+
+* The API for administration will be available at `http://host:port/admin/`
 
 By default, `host` is `localhost`, and `port` is `4000`
 
@@ -66,6 +69,8 @@ The data transmitted by the API for the response must also be presented in json 
 	"user_text": "text"
 }
 ```
+You can also use the admin panel to train the algorithm without accessing the API. The data from the admin panel also gets into the learning algorithm and passes through it in the same way as the data that came through the API of this algorithm
+
 # How it works?
 
 ## Study algorithm
